@@ -1,0 +1,2 @@
+RetailMind AI helps users with product availability, demand forecasting, anomaly alerts, sales insights, 
+discounts, revenue analysis, and customer support queries.
