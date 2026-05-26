@@ -30,3 +30,9 @@ class SearchRequest(BaseModel):
 
 class AgentRequest(BaseModel):
     question: str
+
+class DocumentIntelligenceRequest(BaseModel):
+    pdf_url: str
+
+class TextAnalyticsRequest(BaseModel):
+    text: str

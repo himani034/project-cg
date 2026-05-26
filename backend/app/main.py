@@ -11,4 +11,4 @@ app.include_router(router)
 
 @app.get("/")
 def home():
-    return {"message": "RetailMind AI Backend is runnig"}
+    return {"message": "RetailMind AI Backend is running"}
