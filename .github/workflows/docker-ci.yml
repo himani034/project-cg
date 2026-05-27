@@ -1,0 +1,27 @@
+name: Docker CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  docker-build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout project code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t retailmind-ai:latest .
+
+      - name: Verify Docker image
+        run: docker images retailmind-ai
+
+      - name: Run container test
+        run: |
+          docker run -d -p 8000:8000 --name retailmind-container retailmind-ai:latest
+          sleep 15
+          docker ps

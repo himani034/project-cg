@@ -62,14 +62,15 @@ with open(DEMAND_MODEL_PATH, "wb") as file:
     pickle.dump(demand_model, file)
 
 print("Demand model saved successfully")
+
 print("\nDemand Forecasting Model")
 print("MAE:", round(mae, 2))
 print("R2 Score:", round(r2, 2))
 
-with open(DEMAND_MODEL_PATH, "wb") as file:
-    pickle.dump(demand_model, file)
+# with open(DEMAND_MODEL_PATH, "wb") as file:
+#     pickle.dump(demand_model, file)
 
-print("Demand model saved successfully")
+# print("Demand model saved successfully")
 
 # Anomaly Detection model
 anomaly_features = [
