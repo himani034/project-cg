@@ -1,21 +1,3 @@
-# from pathlib import Path
-
-# BASE_DIR = Path(__file__).resolve().parents[1]
-# DOCUMENTS_DIR = BASE_DIR / "documents"
-
-# def load_documents():
-#     documents = []
-
-#     for file_path in DOCUMENTS_DIR.glob("*.txt"):
-#         documents.append({
-#             "file_name": file_path.name,
-#             "content": file_path.read_text(encoding="utf-8")
-#         })
-
-#     return documents
-
-
-
 from pathlib import Path
 from pypdf import PdfReader
 

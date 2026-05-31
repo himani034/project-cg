@@ -17,4 +17,5 @@ azure-ai-documentintelligence
 azure-storage-blob
 pyarrow
 azure-ai-textanalytics
+groq
 

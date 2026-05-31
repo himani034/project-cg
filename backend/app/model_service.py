@@ -2,8 +2,6 @@ import pickle
 import pandas as pd
 from pathlib import Path
 
-# DEMAND_MODEL_PATH = Path("../ml_training/demand_forecasting_model.pkl")
-# ANOMALY_MODEL_PATH = Path("../ml_training/anomaly_detection_model.pkl")
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 

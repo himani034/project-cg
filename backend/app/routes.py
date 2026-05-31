@@ -101,6 +101,7 @@ def anomaly_prediction(request: AnomalyRequest):
         logger.error(f"Anomaly detection failed: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @router.post("/document-search")
 def document_search(request: SearchRequest):
 
@@ -108,12 +109,37 @@ def document_search(request: SearchRequest):
         logger.info("Document search API called")
 
         document_collection.insert_one({
-            "query": request.query
+            "query": request.query,
+            "created_at": datetime.utcnow()
         })
+
+        from app.azure_openai_service import generate_agent_answer
+
+        docs_path = BASE_DIR / "documents"
+
+        context = ""
+
+        for file in docs_path.glob("*.txt"):
+            with open(file, "r", encoding="utf-8") as f:
+                context += f"\n\nDocument: {file.name}\n"
+                context += f.read()
+
+        answer = generate_agent_answer(
+       system_prompt="""
+You are RetailMind AI Document Assistant.
+
+Answer using only the retrieved document context.
+
+Explain the answer professionally in 4-5 lines.
+Mention important conditions and business rules clearly.
+""",
+            user_question=request.query,
+            context=context
+        )
 
         return {
             "query": request.query,
-            "answer": "RAG document search will be connected in GenAI phase."
+            "answer": answer
         }
 
     except Exception as e:

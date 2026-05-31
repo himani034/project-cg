@@ -1,7 +1,6 @@
 import pandas as pd
 from pathlib import Path
 
-# DATA_PATH = Path("../data/final_retail_ml_output.csv")
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 DATA_PATH = BASE_DIR / "data" / "final_retail_ml_output.csv"
@@ -17,11 +16,24 @@ def get_dataset_summary():
         "column_names": list(df.columns)
     }
 
+
 def get_sales_overview():
     df = load_data()
+
+    anomaly_count = 0
+
+    if "model_anomaly_prediction" in df.columns:
+        anomaly_count = int((df["model_anomaly_prediction"] == -1).sum())
+
+    elif "anomaly_prediction" in df.columns:
+        anomaly_count = int((df["anomaly_prediction"] == -1).sum())
+
+    elif "is_anomaly" in df.columns:
+        anomaly_count = int(df["is_anomaly"].sum())
+
     return {
         "total_revenue": round(float(df["revenue"].sum()), 2),
         "total_units_sold": int(df["units_sold"].sum()),
         "average_conversion_rate": round(float(df["conversion_rate"].mean()), 4),
-        "total_anomalies": int(df["model_anomaly_prediction"].sum())
+        "total_anomalies": anomaly_count
     }

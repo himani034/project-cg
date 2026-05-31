@@ -14,6 +14,8 @@ class DemandRequest(BaseModel):
     month: int
     day: int
     day_of_week: int
+    category: str
+    region: str
 
 
 class AnomalyRequest(BaseModel):

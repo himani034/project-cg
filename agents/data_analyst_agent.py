@@ -1,27 +1,3 @@
-# import pandas as pd
-# from pathlib import Path
-
-# BASE_DIR = Path(__file__).resolve().parents[1]
-# DATA_PATH = BASE_DIR / "data" / "final_retail_ml_output.csv"
-
-
-# def data_analyst_agent(question):
-#     df = pd.read_csv(DATA_PATH)
-
-#     total_revenue = round(df["revenue"].sum(), 2)
-#     total_units = int(df["units_sold"].sum())
-#     top_category = df.groupby("category")["revenue"].sum().idxmax()
-#     top_region = df.groupby("region")["revenue"].sum().idxmax()
-#     anomaly_count = int(df["model_anomaly_prediction"].sum())
-
-#     return {
-#         "agent": "Data Analyst Agent",
-#         "question": question,
-#         "answer": f"Total revenue is {total_revenue}. Total units sold are {total_units}. Top category is {top_category}. Top region is {top_region}. Total detected anomalies are {anomaly_count}."
-#     }
-
-
-
 import sys
 from pathlib import Path
 import pandas as pd
@@ -41,7 +17,18 @@ def data_analyst_agent(question):
     total_units = int(df["units_sold"].sum())
     top_category = df.groupby("category")["revenue"].sum().idxmax()
     top_region = df.groupby("region")["revenue"].sum().idxmax()
-    anomaly_count = int(df["model_anomaly_prediction"].sum())
+
+    if "model_anomaly_prediction" in df.columns:
+        anomaly_count = int((df["model_anomaly_prediction"] == -1).sum())
+
+    elif "anomaly_prediction" in df.columns:
+        anomaly_count = int((df["anomaly_prediction"] == -1).sum())
+
+    elif "is_anomaly" in df.columns:
+        anomaly_count = int(df["is_anomaly"].sum())
+
+    else:
+        anomaly_count = 0
 
     context = f"""
 Retail Analytics Summary:
