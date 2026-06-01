@@ -11,5 +11,4 @@ logs/
 # OS files
 .DS_Store
 Thumbs.db
-*.pkl
-ml_training/*.pkl
+
