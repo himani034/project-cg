@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from app.routes import router
+# from app.routes import router
+from backend.app.routes import router
 
 app = FastAPI(
     title="RetailMind AI Backend",
